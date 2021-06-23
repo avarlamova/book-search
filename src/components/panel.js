@@ -1,20 +1,36 @@
 import React, { useState } from "react";
+import BookList from "./book-list";
+import Spinner from "./spinner";
 
 export default function SearchPanel() {
+  const url = "http://openlibrary.org/search.json?q=";
+
   const [query, setQuery] = useState("");
-  let url = "http://openlibrary.org/search.json?q=";
+  const [titles, setTitles] = useState("");
+  const [authors, setAuthors] = useState("");
+  const [isLoaded, setIsLoaded] = useState(true);
 
   function handleChange(e) {
     setQuery(e.target.value);
   }
 
   function searchBook(e) {
+    setIsLoaded(false);
     e.preventDefault();
-    let arr;
+    let titlesArr;
+    let authorsArr;
     fetch(`${url}${query}`)
       .then((res) => res.json())
-      .then((data) => (arr = data.docs.map((a) => a.title)))
-      .then(() => console.log(arr));
+      .then((data) => {
+        titlesArr = data.docs.map((a) => a.title);
+        authorsArr = data.docs.map((a) => a.author_name);
+      })
+      .then(() => {
+        setTitles(titlesArr);
+        setAuthors(authorsArr);
+        setIsLoaded(true);
+      });
+    return titles;
   }
 
   return (
@@ -28,6 +44,7 @@ export default function SearchPanel() {
         ></input>
         <button type="submit"> Search</button>
       </form>
+      {isLoaded ? <BookList titles={titles} authors={authors} /> : <Spinner />}
     </div>
   );
 }
