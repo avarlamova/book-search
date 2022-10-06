@@ -1,5 +1,5 @@
 import "./App.css";
-import SearchPanel from "./components/panel";
+import SearchPanel from "./components/SearchPanel/SearchPanel";
 
 function App() {
   return (
