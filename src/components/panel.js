@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BookList from "./book-list";
 import Spinner from "./spinner";
 
-export default function SearchPanel() {
+export const  SearchPanel = ()  => {
   const url = "http://openlibrary.org/search.json?q=";
 
   const [query, setQuery] = useState("");
