@@ -15,11 +15,14 @@ const SearchPanel = () => {
     }
 
     return (
+        <>
         <form onSubmit={handleSubmit(onSubmit)}>
             <input className={styles.searchBar} {...register("query")} placeholder={"enter book name"} />
-            <input type="submit" />
+            {/* <input type="submit" /> */}
+        <button type="submit"><SearchIcon /></button>
         </form>
-    //     TODO replace button with image
+
+        </>
     );
 };
 
