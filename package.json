@@ -15,6 +15,8 @@
     "react-scripts": "4.0.3",
     "redux": "^4.2.0",
     "redux-toolkit": "^1.1.2",
+    "sass": "^1.57.1",
+    "uniqid": "^5.4.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -41,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uniqid": "^5.3.2",
     "typescript": "^4.8.4"
   }
 }
