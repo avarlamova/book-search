@@ -1,12 +1,22 @@
 .formWrapper {
   margin: 0 auto;
   max-width: 302px;
+
+  & button {
+    position: relative;
+    left: 330px;
+    bottom: 37px;
+    border: none;
+    padding: 0;
+    background-color: #eae6df;
+    cursor: default;
+  }
 }
 
 .searchBar {
   margin-top: 40px;
   background-color: #f1f1f1;
-  width: 341px;
+  width: 360px;
   height: 22px;
   font-weight: 400;
   font-size: 18px;
@@ -18,13 +28,4 @@
   border-radius: 18px;
   padding: 17px 15px 14px 10px;
   outline: none;
-}
-
-.searchIcon {
-  position: relative;
-  left: 330px;
-  bottom: 37px;
-  border: none;
-  padding: 0;
-  background-color: #eae6df;
 }

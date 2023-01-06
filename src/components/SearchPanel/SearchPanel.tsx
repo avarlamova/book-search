@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 // import { useForm } from "react-hook-form";
 import styles from "./SearchPanel.module.scss";
 import { ReactComponent as SearchIcon } from "./search.svg";
-import { setSearchResults, setLoading } from "../../store/booksSlice";
+import { setSearchResults } from "../../store/booksSlice";
+import { setLoading, setError, setErrorData } from "../../store/generalSlice";
 import { useDispatch } from "react-redux";
 import { useGetSearchResultsQuery } from "../../store/bookApi";
-import { useDebouncedFetching } from "../hooks/useDebouncedFetching";
+import { useDebouncedFetching } from "../../hooks/useDebouncedFetching";
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebouncedFetching(query);
-  const { isFetching, isError, data } = useGetSearchResultsQuery(
+  const { isFetching, isError, error, data } = useGetSearchResultsQuery(
     debouncedQuery,
     {
       refetchOnReconnect: true,
     }
   );
-
+  console.log(error);
   useEffect(() => {
     if (data && data.length > 0) {
       dispatch(setSearchResults(data));
@@ -33,6 +34,14 @@ const SearchPanel = () => {
     //eslint-disable-next-line
   }, [isFetching]);
 
+  useEffect(() => {
+    dispatch(setError(isFetching));
+    if (error) {
+      dispatch(setErrorData(error));
+    }
+    //eslint-disable-next-line
+  }, [isError]);
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement; //https://bobbyhadz.com/blog/typescript-property-value-not-exist-type-eventtarget
     setQuery(target.value);
@@ -40,14 +49,13 @@ const SearchPanel = () => {
 
   return (
     <>
-      {/* TODO submit form */}
       <form className={styles.formWrapper}>
         <input
           className={styles.searchBar}
           onChange={handleChange} // instead of onchange handler
           placeholder={"enter book name"}
         />
-        <button className={styles.searchIcon} type="submit">
+        <button type="submit">
           <SearchIcon />
         </button>
       </form>

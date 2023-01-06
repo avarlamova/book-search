@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { bookApi } from "./bookApi";
 import booksSlice from "./booksSlice";
+import generalSlice from "./generalSlice";
 
 const rootReducer = combineReducers({
   books: booksSlice,
+  general: generalSlice,
   [bookApi.reducerPath]: bookApi.reducer, //https://stackoverflow.com/questions/74190721/how-to-configure-store-with-different-api-slice-reducers-with-different-base-url
 });
 

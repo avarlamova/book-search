@@ -5,14 +5,12 @@ interface BooksState {
   query: string;
   searchResults: IBook[];
   selectedBook: any;
-  isLoading: boolean;
 }
 
 const initialState: BooksState = {
   query: "",
   searchResults: [],
   selectedBook: {},
-  isLoading: false,
 };
 
 export const booksSlice = createSlice({
@@ -22,12 +20,9 @@ export const booksSlice = createSlice({
     setSearchResults: (state, action) => {
       state.searchResults = [...action.payload];
     },
-    setLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
   },
 });
 
-export const { setSearchResults, setLoading } = booksSlice.actions;
+export const { setSearchResults } = booksSlice.actions;
 
 export default booksSlice.reducer;
