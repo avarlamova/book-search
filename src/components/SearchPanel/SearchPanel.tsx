@@ -1,37 +1,53 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import styles from "./SearchPanel.module.css";
+import React, { useState, useEffect } from "react";
+// import { useForm } from "react-hook-form";
+import styles from "./SearchPanel.module.scss";
 import { ReactComponent as SearchIcon } from "./search.svg";
-
-type InputType = {
-  query: string;
-};
+import { setSearchResults, setLoading } from "../../store/booksSlice";
+import { useDispatch } from "react-redux";
+import { useGetSearchResultsQuery } from "../../store/bookApi";
+import { useDebouncedFetching } from "../hooks/useDebouncedFetching";
 
 const SearchPanel = () => {
-  const { register, handleSubmit, setValue } = useForm<InputType>();
+  const dispatch = useDispatch();
+
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebouncedFetching(query);
+  const { isFetching, isError, data } = useGetSearchResultsQuery(
+    debouncedQuery,
+    {
+      refetchOnReconnect: true,
+    }
+  );
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      dispatch(setSearchResults(data));
+    } else {
+      dispatch(setSearchResults([]));
+    }
+    //eslint-disable-next-line
+  }, [data]);
+
+  useEffect(() => {
+    dispatch(setLoading(isFetching));
+    //eslint-disable-next-line
+  }, [isFetching]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement; //https://bobbyhadz.com/blog/typescript-property-value-not-exist-type-eventtarget
-    //   Спустя секунду после ввода последнего символа текста в поисковую строку автоматически должен начаться поиск книг. Если в течении секунды пользователь вводит что-то дополнительно, таймер должен сбрасываться.
-
-    setValue("query", target.value);
-    setTimeout(
-      handleSubmit((e) => console.log(e)),
-      1000
-    );
+    setQuery(target.value);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      {/* TODO submit form */}
+      <form className={styles.formWrapper}>
         <input
           className={styles.searchBar}
-          {
-            ...(register("query"), { onChange: handleChange }) // instead of onchange handler
-          }
+          onChange={handleChange} // instead of onchange handler
           placeholder={"enter book name"}
         />
-        <button type="submit">
+        <button className={styles.searchIcon} type="submit">
           <SearchIcon />
         </button>
       </form>
