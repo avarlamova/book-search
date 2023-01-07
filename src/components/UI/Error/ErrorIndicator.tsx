@@ -1,15 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
-// error
-// :
-// "TypeError: Failed to fetch"
-// status
-// :
-// "FETCH_ERROR"
-const Error = () => {
+const ErrorIndicator = () => {
   const errorData = useSelector((state: RootState) => state.general.errorData);
-  console.log(errorData);
+  console.log(errorData.error);
   return (
     <div>
       <p>Error {errorData?.error}</p>
@@ -17,4 +11,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorIndicator;

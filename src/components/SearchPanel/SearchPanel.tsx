@@ -19,7 +19,6 @@ const SearchPanel = () => {
       refetchOnReconnect: true,
     }
   );
-  console.log(error);
   useEffect(() => {
     if (data && data.length > 0) {
       dispatch(setSearchResults(data));

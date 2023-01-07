@@ -19,6 +19,7 @@ export interface IBook {
   publish_date?: string[];
   publish_year?: number[];
   first_publish_year?: number;
+  publisher?: string[];
   lcc?: string[];
   ddc?: string[];
   isbn?: string[];

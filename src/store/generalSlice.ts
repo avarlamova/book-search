@@ -4,9 +4,8 @@ interface GeneralState {
   selectedBook: any;
   isLoading: boolean;
   isError: boolean;
-  errorData: ErrorData | {};
+  errorData: Partial<ErrorData>; //https://typescript-definitive-guide.ru/book/chapters/Readonly,Partial,Required,Pick,Record/
 }
-
 type ErrorData = {
   error: string;
   status: string;
@@ -30,12 +29,15 @@ export const generalSlice = createSlice({
       state.isError = action.payload;
     },
     setErrorData: (state, action) => {
-      console.log(action.payload);
       state.errorData = action.payload;
+    },
+    setSelectedBook: (state, action) => {
+      state.selectedBook = action.payload;
     },
   },
 });
 
-export const { setError, setLoading, setErrorData } = generalSlice.actions;
+export const { setError, setLoading, setErrorData, setSelectedBook } =
+  generalSlice.actions;
 
 export default generalSlice.reducer;

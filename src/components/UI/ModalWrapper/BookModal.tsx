@@ -1,6 +1,7 @@
 import { FC, ReactNode, useEffect, useMemo } from "react";
 import * as ReactDOM from "react-dom";
-import styles from "./ModalWrapper.module.scss";
+import styles from "./BookModal.module.scss";
+import { ReactComponent as CloseIcon } from "./CloseIcon.svg";
 
 interface ModalWrapperProps {
   children: ReactNode;
@@ -25,8 +26,11 @@ const ModalWrapper: FC<ModalWrapperProps> = ({ children, toggleModal }) => {
   }
 
   return ReactDOM.createPortal(
-    <div className={styles.background} onClick={toggleModal}>
-      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+    <div onClick={toggleModal} className={styles.background}>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <CloseIcon onClick={toggleModal} className={styles.closeIcon} />
+        {children}
+      </div>
     </div>,
     containerElement
   );
