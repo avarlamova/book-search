@@ -12,7 +12,7 @@ export const BookList = () => {
   return (
     <div className={styles.cards}>
       {books.map((book: IBook) => (
-        <BookSnippet book={book} />
+        <BookSnippet key={book.key} book={book} />
       ))}
     </div>
   );

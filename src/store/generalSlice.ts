@@ -1,4 +1,4 @@
-import { IBook } from "./../types/types";
+// import { IBook } from "./../types/types";
 import { createSlice } from "@reduxjs/toolkit";
 interface GeneralState {
   selectedBook: any;

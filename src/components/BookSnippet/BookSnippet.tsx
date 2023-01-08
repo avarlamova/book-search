@@ -4,7 +4,11 @@ import { IBook } from "../../types/types";
 import styles from "./Book.module.scss";
 import coverImg from "./cover.jpeg";
 
-const BookSnippet = ({ book }: any) => {
+type BookType = {
+  book: IBook;
+};
+
+const BookSnippet = ({ book }: BookType) => {
   const dispatch = useDispatch();
 
   const cover_src = book.cover_i
