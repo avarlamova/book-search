@@ -46,15 +46,22 @@ const SearchPanel = () => {
     setQuery(target.value);
   };
 
+  function handleKeyDown(keyEvent: any) {
+    if (keyEvent.keyCode === 13) {
+      keyEvent.preventDefault();
+    }
+  }
+
   return (
     <>
-      <form className={styles.formWrapper}>
+      <form className={styles.formWrapper} onKeyDown={handleKeyDown}>
         <input
+          spellCheck="false"
           className={styles.searchBar}
           onChange={handleChange} // instead of onchange handler
           placeholder={"enter book name"}
         />
-        <button type="submit">
+        <button className={styles.submitBtn} type="submit">
           <SearchIcon />
         </button>
       </form>
